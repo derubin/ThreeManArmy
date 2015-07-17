@@ -2208,7 +2208,7 @@
 			<key>cornerRadius</key>
 			<real>0.0</real>
 			<key>density</key>
-			<real>3.5</real>
+			<real>1</real>
 			<key>dynamic</key>
 			<true/>
 			<key>elasticity</key>
@@ -2218,8 +2218,8 @@
 			<key>points</key>
 			<array>
 				<array>
-					<real>-7.0229992866516113</real>
-					<real>-14.664675712585449</real>
+					<real>-7.3174066543579102</real>
+					<real>-16.828458786010742</real>
 				</array>
 				<array>
 					<real>-5.8648595809936523</real>
@@ -2230,16 +2230,16 @@
 					<real>10.687020301818848</real>
 				</array>
 				<array>
-					<real>2.0702848434448242</real>
-					<real>-14.489555358886719</real>
+					<real>3.8266215324401855</real>
+					<real>-16.59849739074707</real>
 				</array>
 			</array>
 			<key>polygons</key>
 			<array>
 				<array>
 					<array>
-						<real>2.0702848434448242</real>
-						<real>-14.489555358886719</real>
+						<real>3.8266215324401855</real>
+						<real>-16.59849739074707</real>
 					</array>
 					<array>
 						<real>2.9675905704498291</real>
@@ -2250,8 +2250,8 @@
 						<real>11.341056823730469</real>
 					</array>
 					<array>
-						<real>-7.0229992866516113</real>
-						<real>-14.664675712585449</real>
+						<real>-7.3174066543579102</real>
+						<real>-16.828458786010742</real>
 					</array>
 				</array>
 			</array>

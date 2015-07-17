@@ -32,7 +32,7 @@ class Hero: CCSprite {
     }
     var isShooting: Bool = false
     var isJumping: Bool = false
-
+    
     weak var idle: CCNode!
     weak var jump: CCNode!
     weak var shoot: CCNode!

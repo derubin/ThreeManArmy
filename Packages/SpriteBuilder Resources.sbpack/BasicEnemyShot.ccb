@@ -60,7 +60,7 @@
 			<key>collisionMask</key>
 			<array/>
 			<key>collisionType</key>
-			<string>shot</string>
+			<string>basicEnemyShot</string>
 			<key>cornerRadius</key>
 			<real>0.0</real>
 			<key>density</key>
@@ -74,40 +74,40 @@
 			<key>points</key>
 			<array>
 				<array>
-					<real>-3.6450982093811035</real>
-					<real>-4.3510112762451172</real>
+					<real>-3.584587574005127</real>
+					<real>-3.7558901309967041</real>
 				</array>
 				<array>
-					<real>-4.6770148277282715</real>
-					<real>3.344724178314209</real>
+					<real>-3.1039180755615234</real>
+					<real>5.3359231948852539</real>
 				</array>
 				<array>
-					<real>4.7719521522521973</real>
-					<real>3.5449469089508057</real>
+					<real>4.1981682777404785</real>
+					<real>5.3717179298400879</real>
 				</array>
 				<array>
-					<real>4.3971762657165527</real>
-					<real>-5.0646252632141113</real>
+					<real>3.4899477958679199</real>
+					<real>-4.6942181587219238</real>
 				</array>
 			</array>
 			<key>polygons</key>
 			<array>
 				<array>
 					<array>
-						<real>4.3971762657165527</real>
-						<real>-5.0646252632141113</real>
+						<real>3.4899477958679199</real>
+						<real>-4.6942181587219238</real>
 					</array>
 					<array>
-						<real>4.7719521522521973</real>
-						<real>3.5449469089508057</real>
+						<real>4.1981682777404785</real>
+						<real>5.3717179298400879</real>
 					</array>
 					<array>
-						<real>-4.6770148277282715</real>
-						<real>3.344724178314209</real>
+						<real>-3.1039180755615234</real>
+						<real>5.3359231948852539</real>
 					</array>
 					<array>
-						<real>-3.6450982093811035</real>
-						<real>-4.3510112762451172</real>
+						<real>-3.584587574005127</real>
+						<real>-3.7558901309967041</real>
 					</array>
 				</array>
 			</array>
@@ -193,7 +193,7 @@
 				<key>type</key>
 				<string>Float</string>
 				<key>value</key>
-				<real>5</real>
+				<real>-1</real>
 			</dict>
 			<dict>
 				<key>name</key>

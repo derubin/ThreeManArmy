@@ -51,10 +51,11 @@ class BasicEnemy: CCSprite {
     
     func detectHero(yCor: CGFloat, xCor: CGFloat, scale: Int) -> Bool {
         if self.position.y >= (yCor - 10) && self.position.y <= (yCor + 10) {
-            if self.position.x >= xCor && scale == -1 {
+            var difference = abs(self.position.x - xCor)
+            if self.position.x >= xCor && scale == -1 && difference <= 648 {
                 return true
             }
-            else if self.position.x < xCor && scale == 1 {
+            else if self.position.x < xCor && scale == 1 && difference <= 648 {
                 return true
             }
             else {
