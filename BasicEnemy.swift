@@ -75,10 +75,12 @@ class BasicEnemy: CCSprite {
             walk.visible = true
         }
         if self.scaleX == 1 {
-            self.position = CGPoint(x: (self.position.x + 1), y: self.position.y)
+//            self.position = CGPoint(x: (self.position.x + 1), y: self.position.y)
+            self.physicsBody.velocity.x = CGFloat(30)
         }
         else if self.scaleX == -1 {
-            self.position = CGPoint(x: (self.position.x - 1), y: self.position.y)
+//            self.position = CGPoint(x: (self.position.x - 1), y: self.position.y)
+            self.physicsBody.velocity.x = CGFloat(-30)
         }
     }
 }
