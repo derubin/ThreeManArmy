@@ -4032,7 +4032,7 @@
 				<key>displayName</key>
 				<string>AimBNode</string>
 				<key>memberVarAssignmentName</key>
-				<string>aimB</string>
+				<string></string>
 				<key>memberVarAssignmentType</key>
 				<integer>1</integer>
 				<key>properties</key>
@@ -4152,8 +4152,8 @@
 					<real>-14.998015403747559</real>
 				</array>
 				<array>
-					<real>-69.671501159667969</real>
-					<real>-16.902765274047852</real>
+					<real>-27.210968017578125</real>
+					<real>4.656219482421875</real>
 				</array>
 				<array>
 					<real>-24.018770217895508</real>
@@ -4180,8 +4180,8 @@
 						<real>39.509510040283203</real>
 					</array>
 					<array>
-						<real>-69.671501159667969</real>
-						<real>-16.902765274047852</real>
+						<real>-27.210968017578125</real>
+						<real>4.656219482421875</real>
 					</array>
 					<array>
 						<real>-12.378344535827637</real>

@@ -96,8 +96,8 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>0.44999998807907104</real>
-							<real>0.30000001192092896</real>
+							<real>0.34999999403953552</real>
+							<real>0.20000000298023224</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -177,7 +177,7 @@
 			<key>dynamic</key>
 			<true/>
 			<key>elasticity</key>
-			<real>0.30000001192092896</real>
+			<real>0.0</real>
 			<key>friction</key>
 			<real>0.30000001192092896</real>
 			<key>points</key>
@@ -187,24 +187,24 @@
 					<real>2.0922179222106934</real>
 				</array>
 				<array>
-					<real>8.4731693267822266</real>
-					<real>34.279911041259766</real>
+					<real>6.8872385025024414</real>
+					<real>21.537862777709961</real>
 				</array>
 				<array>
-					<real>20.547588348388672</real>
-					<real>1.7571620941162109</real>
+					<real>15.246260643005371</real>
+					<real>1.9805326461791992</real>
 				</array>
 			</array>
 			<key>polygons</key>
 			<array>
 				<array>
 					<array>
-						<real>20.547588348388672</real>
-						<real>1.7571620941162109</real>
+						<real>15.246260643005371</real>
+						<real>1.9805326461791992</real>
 					</array>
 					<array>
-						<real>8.4731693267822266</real>
-						<real>34.279911041259766</real>
+						<real>6.8872385025024414</real>
+						<real>21.537862777709961</real>
 					</array>
 					<array>
 						<real>0.38715618848800659</real>
