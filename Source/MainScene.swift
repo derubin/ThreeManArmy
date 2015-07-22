@@ -25,7 +25,7 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
     var enemyArray: [BasicEnemy] = []//array of BasicEnemy's in addEnemy(xCor, yCor)
     var backgroundArray: [CCNode] = []//array of backgrounds, to keep scrolling
     var enemyCanShoot: [Bool] = []//whether or not enemy can shoot
-    var bossArray: [HeavyTerror] = []//array of bosses
+//    var bossArray: [HeavyTerror] = []//array of bosses
     var missleArray: [CCNode] = []//array of missles
     
     var jumped = true//move to hero class later
@@ -51,6 +51,10 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
     var bossHealth = 10
     var beginTouchX = CGFloat(0)
     var beginTouchY = CGFloat(0)
+    var bossLevelAppear = 1
+    var enemiesGoneOnce = 0
+    
+    let temporaryBoss = CCBReader.load("HeavyTerror") as! HeavyTerror
     
     func didLoadFromCCB() {
         addBackground()
@@ -58,12 +62,13 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
         addBackground()
         addScene("Scenes/BeginningScene")
 //        addScene("Scenes/BossScene")
-        addScene("Scenes/Scene1")
         addScene("Scenes/Scene3")
+        addScene("Scenes/Scene1")
         numBasicEnemies--
         numBosses--
-//        numMissles--
+//        enemiesGone--
         userInteractionEnabled = true
+        multipleTouchEnabled = true
         gamePhysicsNode.collisionDelegate = self
     }
     
@@ -92,8 +97,7 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
     }
     
     func addHeavyTerror(sceneNum: Int) {
-        let temporaryBoss = CCBReader.load("HeavyTerror") as! HeavyTerror
-        bossArray.append(temporaryBoss)
+//        bossArray.append(temporaryBoss)
         temporaryBoss.position = CGPoint(x: sceneNum + 675, y: 300)
         enemyNode.addChild(temporaryBoss)
         numBosses++
@@ -113,7 +117,7 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
             if hero.position.y <= 0 {
                 endGame()
             }
-            if isBoss == true && hero.position.x >= (bossArray[numBosses].position.x - 400){
+            if isBoss == true && hero.position.x >= (/*bossArray[numBosses].position.x*/temporaryBoss.position.x - 600) {
                 updateBoss()
                 bossSeconds++
             }
@@ -131,11 +135,9 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
                 }
             }
             if hero.movementState == HeroMovementState.MovingRight {
-                //            hero.position = CGPoint(x: (hero.position.x + 1), y: hero.position.y)
                 hero.physicsBody.velocity.x = CGFloat(100)
             }
             else if hero.movementState == HeroMovementState.MovingLeft {
-                //            hero.position = CGPoint(x: (hero.position.x - 1), y: hero.position.y)
                 hero.physicsBody.velocity.x = CGFloat(-100)
             }
             if hero.position.x >= CGFloat(heroXPos) {
@@ -150,6 +152,8 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
                 scenesGone++
                 if scenesGone % 4 == 0 {
                     addScene("Scenes/BossScene")
+//                    bossLevelAppear = 4
+                    println("Boss")
                 }
                 else {
                     var value = Int(arc4random_uniform(3))
@@ -181,12 +185,14 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
     
     func updateBoss() {
         if isAiming == false {
-            bossArray[numBosses].aim()
+//            bossArray[numBosses].aim()
+            temporaryBoss.aim()
             isAiming = true
             bossSeconds = 0
         }
         else if bossSeconds >= 45 {
-            bossShot(bossArray[numBosses])
+//            bossShot(bossArray[numBosses])
+            bossShot(temporaryBoss)
             bossSeconds = 0
         }
         missleUpdate()
@@ -209,45 +215,45 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
         if gameOver == false {
             beginTouchX = touch.locationInWorld().x
             beginTouchY = touch.locationInWorld().y
-            if beginTouchX >= 17 && beginTouchY >= 7 && beginTouchX <= 104 && beginTouchY <= 64 {
-                hero.movementState = HeroMovementState.MovingLeft
-                hero.walkAnimate()
-                hero.scaleX = -1
+        }
+    }
+    
+    override func touchMoved(touch : CCTouch, withEvent: CCTouchEvent) {
+        if gameOver == false {
+            var screenSeg = CCDirector.sharedDirector().viewSize().width / 2
+            if touch.locationInWorld().x > screenSeg && self.jumped == false && beginTouchY < touch.locationInWorld().y {
+                hero.physicsBody.velocity.y = 100
+                hero.physicsBody.velocity.x = 0
+//                hero.physicsBody.applyImpulse(CGPoint(x: 0, y: 25))
+                hero.jumpAnimate()
+                jumped = true
             }
+            //            else if touch.locationInWorld().x > screenSeg {
+            //                heroShot()
+            //            }
             
-            if beginTouchX >= 112 && beginTouchY >= 7 && beginTouchX <= 199 && beginTouchY <= 64 {
+            if touch.locationInWorld().x > beginTouchX && touch.locationInWorld().x < screenSeg && (hero.movementState == HeroMovementState.IdleRight || hero.movementState == HeroMovementState.IdleLeft || hero.movementState == HeroMovementState.MovingLeft) {
                 hero.movementState = HeroMovementState.MovingRight
                 hero.walkAnimate()
                 hero.scaleX = 1
             }
+            else if touch.locationInWorld().x < beginTouchX && touch.locationInWorld().x < screenSeg && (hero.movementState == HeroMovementState.IdleRight || hero.movementState == HeroMovementState.IdleLeft || hero.movementState == HeroMovementState.MovingRight) {
+                hero.movementState = HeroMovementState.MovingLeft
+                hero.walkAnimate()
+                hero.scaleX = -1
+            }
         }
     }
     
-//    override func touchMoved(touch : CCTouch, withEvent: CCTouchEvent) {
-//        if gameOver == false {
-//            if touch.locationInWorld().x > beginTouchX && (hero.movementState == HeroMovementState.IdleRight || hero.movementState == HeroMovementState.IdleLeft || hero.movementState == HeroMovementState.MovingLeft) {
-//                hero.movementState = HeroMovementState.MovingRight
-//                hero.walkAnimate()
-//                hero.scaleX = 1
-//            }
-//            else if touch.locationInWorld().x < beginTouchX && (hero.movementState == HeroMovementState.IdleRight || hero.movementState == HeroMovementState.IdleLeft || hero.movementState == HeroMovementState.MovingRight) {
-//                hero.movementState = HeroMovementState.MovingLeft
-//                hero.walkAnimate()
-//                hero.scaleX = -1
-//            }
-//        }
-//    }
-    
     override func touchEnded(touch: CCTouch!, withEvent event: CCTouchEvent!) {
         if gameOver == false {
+            hero.physicsBody.velocity.x = CGFloat(0)
             if hero.movementState == HeroMovementState.MovingRight {
                 hero.idleAnimate()
-                hero.physicsBody.velocity.x = CGFloat(0)
                 hero.movementState = HeroMovementState.IdleRight
             }
             else if hero.movementState == HeroMovementState.MovingLeft {
                 hero.idleAnimate()
-                hero.physicsBody.velocity.x = CGFloat(0)
                 hero.movementState = HeroMovementState.IdleLeft
             }
         }
@@ -360,7 +366,8 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
         if heroHealth == 0 {
             endGame()
         }
-        self.gamePhysicsNode.removeChild(bossMissleCrash)
+//        self.gamePhysicsNode.removeChild(bossMissleCrash)
+        bossMissleCrash.removeFromParentAndCleanup(true)
         let explosion = CCBReader.load("MissleExplosion", owner: self) as CCNode
         explosion.position.y = (bossMissleCrash.position.y)
         explosion.position.x = (bossMissleCrash.position.x)
@@ -393,17 +400,32 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
             enemyCanShoot[i] = false
     }
     
-    func jump() {
-        if self.jumped == false && gameOver == false {
-//            self.hero.physicsBody.applyImpulse(CGPoint(x: 0, y: 25))//25
-            self.hero.physicsBody.velocity.y = 100
-            self.jumped = true
-            self.hero.jumpAnimate()
-        }
-    }
+//    func jump() {
+//        if self.jumped == false && gameOver == false {
+////            self.hero.physicsBody.applyImpulse(CGPoint(x: 0, y: 25))//25
+//            self.hero.physicsBody.velocity.y = 100
+//            self.jumped = true
+//            self.hero.jumpAnimate()
+//        }
+//    }
     
     func shoot() {
         if heroShots >= 30 && gameOver == false {
+//            println("1")
+            heroShots = 0
+            hero.hasShot()
+            let explosion = CCBReader.load("Shot") as! CCParticleSystem
+            explosion.autoRemoveOnFinish = true
+            explosion.position.y = (hero.position.y + 5)
+            explosion.position.x = (hero.position.x + CGFloat(hero.shotMoveScale))
+            gamePhysicsNode.addChild(explosion)
+            explosion.physicsBody.applyImpulse(CGPoint(x: hero.shotImpulseScale, y: 0))
+        }
+    }
+    
+    func heroShot() {
+        if heroShots >= 30 {
+//            println("2")
             heroShots = 0
             hero.hasShot()
             let explosion = CCBReader.load("Shot") as! CCParticleSystem
@@ -454,13 +476,14 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
         enemyArray.removeAll(keepCapacity: false)
         backgroundArray.removeAll(keepCapacity: false)
         enemyCanShoot.removeAll(keepCapacity: false)
-        bossArray.removeAll(keepCapacity: false)
+//        bossArray.removeAll(keepCapacity: false)
         let gameplayScene = CCBReader.loadAsScene("MainScene")
         CCDirector.sharedDirector().presentScene(gameplayScene)
+//        gameScoreLabel.string = "0"
     }
     
     func pause() {
-        //        pauseScreen.visible = true
-        //        mainScreen.paused = true
+//        pauseScreen.visible = true
+//        mainScreen.paused = true
     }
 }

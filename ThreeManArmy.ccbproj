@@ -84,9 +84,17 @@
 			<true/>
 		</dict>
 		<key>Heavy_Terror_sprites</key>
-		<dict/>
+		<dict>
+			<key>isDirty</key>
+			<true/>
+		</dict>
 		<key>Heavy_Terror_sprites/Robot</key>
-		<dict/>
+		<dict>
+			<key>isDirty</key>
+			<true/>
+			<key>isSmartSpriteSheet</key>
+			<true/>
+		</dict>
 		<key>Heavy_Terror_sprites/Vehicles</key>
 		<dict/>
 		<key>Heavy_Terror_sprites/background</key>
