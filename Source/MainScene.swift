@@ -69,12 +69,13 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
         multipleTouchEnabled = true
         gamePhysicsNode.collisionDelegate = self
         
-//        defaults.setBool(false, forKey: "startup")
         heroHealth = defaults.integerForKey("life")
         fireRateDefault = defaults.integerForKey("rate")
         speed = defaults.integerForKey("speed")
         
         lifeLabel.string = "\(heroHealth)"
+        
+        setupGestures()
     }
     
     func addScene(sceneName: String) {
@@ -149,6 +150,10 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
                     enemyArray[index].move()
                 }
             }
+            if hero.isShooting == true && heroShots > 15 {//Hack, replace if everything breaks
+                hero.isShooting = false
+                hero.walkAnimate()
+            }
             if hero.movementState == HeroMovementState.MovingRight {
                 hero.physicsBody.velocity.x = CGFloat(speed)
             }
@@ -221,52 +226,98 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
         }
     }
     
-    override func touchBegan(touch: CCTouch!, withEvent event: CCTouchEvent!) {
-        if gameOver == false {
-            beginTouchX = touch.locationInWorld().x
-            beginTouchY = touch.locationInWorld().y
-        }
+    func otherMoveMethod() {
+//    override func touchBegan(touch: CCTouch!, withEvent event: CCTouchEvent!) {
+//        if gameOver == false {
+//            beginTouchX = touch.locationInWorld().x
+//            beginTouchY = touch.locationInWorld().y
+//        }
+//    }
+//    
+//    override func touchMoved(touch : CCTouch, withEvent: CCTouchEvent) {
+//        if gameOver == false {
+//            var screenSeg = CCDirector.sharedDirector().viewSize().width / 2
+//            if touch.locationInWorld().x > screenSeg && self.jumped == false && beginTouchY < touch.locationInWorld().y {
+//                hero.physicsBody.velocity.y = 80//100 just a little too much
+////                hero.physicsBody.velocity.x = 0
+//                hero.jumpAnimate()
+//                jumped = true
+//            }
+////            else if touch.locationInWorld().x > screenSeg {
+////                heroShot()
+////            }
+//            
+//            if touch.locationInWorld().x > beginTouchX && touch.locationInWorld().x < screenSeg && (hero.movementState == HeroMovementState.IdleRight || hero.movementState == HeroMovementState.IdleLeft || hero.movementState == HeroMovementState.MovingLeft) {
+//                hero.movementState = HeroMovementState.MovingRight
+//                hero.walkAnimate()
+//                hero.scaleX = 1
+//            }
+//            else if touch.locationInWorld().x < beginTouchX && touch.locationInWorld().x < screenSeg && (hero.movementState == HeroMovementState.IdleRight || hero.movementState == HeroMovementState.IdleLeft || hero.movementState == HeroMovementState.MovingRight) {
+//                hero.movementState = HeroMovementState.MovingLeft
+//                hero.walkAnimate()
+//                hero.scaleX = -1
+//            }
+//        }
+//    }
+//    
+//    override func touchEnded(touch: CCTouch!, withEvent event: CCTouchEvent!) {
+//        if gameOver == false {
+////            hero.physicsBody.velocity.x = CGFloat(0)
+//            if hero.movementState == HeroMovementState.MovingRight {
+//                hero.idleAnimate()
+//                hero.movementState = HeroMovementState.IdleRight
+//                hero.physicsBody.velocity.x = CGFloat(0)
+//            }
+//            else if hero.movementState == HeroMovementState.MovingLeft {
+//                hero.idleAnimate()
+//                hero.movementState = HeroMovementState.IdleLeft
+//                hero.physicsBody.velocity.x = CGFloat(0)
+//            }
+//        }
+//        }
     }
     
-    override func touchMoved(touch : CCTouch, withEvent: CCTouchEvent) {//check make2048 for their swipe gestures?
-        if gameOver == false {
-            var screenSeg = CCDirector.sharedDirector().viewSize().width / 2
-            if touch.locationInWorld().x > screenSeg && self.jumped == false && beginTouchY < touch.locationInWorld().y {
-                hero.physicsBody.velocity.y = 80//100 just a little too much
-                hero.physicsBody.velocity.x = 0
-                hero.jumpAnimate()
-                jumped = true
-            }
-            //            else if touch.locationInWorld().x > screenSeg {
-            //                heroShot()
-            //            }
-            
-            if touch.locationInWorld().x > beginTouchX && touch.locationInWorld().x < screenSeg && (hero.movementState == HeroMovementState.IdleRight || hero.movementState == HeroMovementState.IdleLeft || hero.movementState == HeroMovementState.MovingLeft) {
-                hero.movementState = HeroMovementState.MovingRight
-                hero.walkAnimate()
-                hero.scaleX = 1
-            }
-            else if touch.locationInWorld().x < beginTouchX && touch.locationInWorld().x < screenSeg && (hero.movementState == HeroMovementState.IdleRight || hero.movementState == HeroMovementState.IdleLeft || hero.movementState == HeroMovementState.MovingRight) {
-                hero.movementState = HeroMovementState.MovingLeft
-                hero.walkAnimate()
-                hero.scaleX = -1
-            }
-        }
+    func setupGestures() {
+        var swipeLeft = UISwipeGestureRecognizer(target: self, action: "swipeLeft")
+        swipeLeft.direction = .Left
+        CCDirector.sharedDirector().view.addGestureRecognizer(swipeLeft)
+        
+        var swipeRight = UISwipeGestureRecognizer(target: self, action: "swipeRight")
+        swipeRight.direction = .Right
+        CCDirector.sharedDirector().view.addGestureRecognizer(swipeRight)
+        
+        var swipeUp = UISwipeGestureRecognizer(target: self, action: "swipeUp")
+        swipeUp.direction = .Up
+        CCDirector.sharedDirector().view.addGestureRecognizer(swipeUp)
+        
+        var swipeDown = UISwipeGestureRecognizer(target: self, action: "swipeDown")
+        swipeDown.direction = .Down
+        CCDirector.sharedDirector().view.addGestureRecognizer(swipeDown)
     }
     
-    override func touchEnded(touch: CCTouch!, withEvent event: CCTouchEvent!) {
-        if gameOver == false {
-            hero.physicsBody.velocity.x = CGFloat(0)
-            if hero.movementState == HeroMovementState.MovingRight {
-                hero.idleAnimate()
-                hero.movementState = HeroMovementState.IdleRight
-            }
-            else if hero.movementState == HeroMovementState.MovingLeft {
-                hero.idleAnimate()
-                hero.movementState = HeroMovementState.IdleLeft
-            }
-        }
-        }
+    func swipeLeft() {
+      hero.movementState = HeroMovementState.MovingLeft
+      hero.walkAnimate()
+      hero.scaleX = -1
+    }
+
+    func swipeRight() {
+      hero.movementState = HeroMovementState.MovingRight
+      hero.walkAnimate()
+      hero.scaleX = 1
+    }
+    
+    func swipeUp() {
+        hero.physicsBody.velocity.y = 80//100 just a little too much
+        hero.jumpAnimate()
+        jumped = true
+    }
+
+    func swipeDown() {
+        hero.idleAnimate()
+        hero.movementState = HeroMovementState.IdleRight
+        hero.physicsBody.velocity.x = CGFloat(0)
+    }
     
     func ccPhysicsCollisionPostSolve(pair: CCPhysicsCollisionPair!, falling: Hero!, ground: CCNode!) {
         if jumped == true {
@@ -414,11 +465,11 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
     }
     
     func shoot() {
-//        var fireRateDefault = defaults.integerForKey("rate")
         if heroShots >= fireRateDefault && gameOver == false {
 //            println("1")
             heroShots = 0
             hero.hasShot()
+            hero.isShooting = true
             let explosion = CCBReader.load("Shot") as! CCParticleSystem
             explosion.autoRemoveOnFinish = true
             explosion.position.y = (hero.position.y + 5)
