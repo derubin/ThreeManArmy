@@ -20,20 +20,20 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
     weak var backgroundNode: CCNode!//backgrounds stay here
     weak var lifeLabel: CCLabelTTF!//life left
     weak var gameScoreLabel: CCLabelTTF!//Score in game
+    weak var pauseScreen: CCNode!//faded node over everything
     
     var sceneArray: [CCNode] = []//Holds the scenes
     var enemyArray: [BasicEnemy] = []//array of BasicEnemy's in addEnemy(xCor, yCor)
     var backgroundArray: [CCNode] = []//array of backgrounds, to keep scrolling
     var enemyCanShoot: [Bool] = []//whether or not enemy can shoot
-//    var bossArray: [HeavyTerror] = []//array of bosses
     var missleArray: [CCNode] = []//array of missles
+    var limitShots: [Int] = []//limit enemy shots to once per 28 frames
     
     var jumped = true//move to hero class later
     var gameOver = false//keeps track of when game ends
-    var limitShots = 0//limits enemies to shooting once per 28 frames
     var heroShots = 30//limits hero to shooting once per 30 frames (one sec)
     var numBasicEnemies = 0//keeps track of num of enemies.
-    var heroHealth = 10//hero health, goes down when hit with shot
+    var heroHealth = 0//hero health, goes down when hit with shot
     var sceneNum = 0//how far to add a scene
     var heroXPos = 1512//When to delete scenes
     var scenesGone = 0//how many scenes are deleted
@@ -42,34 +42,39 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
     var backgroundLocation = -300//x location of background
     var backgroundGone = 0//keeps track of backgrounds in array
     var enemiesKilled = 0//score of enemies killed ( and scenes completed?)
-    var numBosses = 0//how many bosses
     var isBoss = false//whether or not updates boss
     var bossSeconds = 0//bossShooting to a minimum, and after aims
     var isAiming = false//controls when it can shoot
     var numMissles = 0//how many missles there are
-    var isShooting = false
-    var bossHealth = 10
-    var beginTouchX = CGFloat(0)
-    var beginTouchY = CGFloat(0)
-    var bossLevelAppear = 1
-    var enemiesGoneOnce = 0
+    var isShooting = false//only updates missles while boss is shooting
+    var bossHealth = 10//health of the boss
+    var beginTouchX = CGFloat(0)//part of touch detection for movement
+    var beginTouchY = CGFloat(0)//*same as above
+    var fireRateDefault = 0//fire rate in NSUserdefaults
+    var speed = 0//default speed
     
     let temporaryBoss = CCBReader.load("HeavyTerror") as! HeavyTerror
+    let mainMenu = CCBReader.loadAsScene("MainMenu")
+    let defaults = NSUserDefaults.standardUserDefaults()
     
     func didLoadFromCCB() {
         addBackground()
         addBackground()
         addBackground()
         addScene("Scenes/BeginningScene")
-//        addScene("Scenes/BossScene")
-        addScene("Scenes/Scene3")
+        addScene("Scenes/Scene2")
         addScene("Scenes/Scene1")
         numBasicEnemies--
-        numBosses--
-//        enemiesGone--
         userInteractionEnabled = true
         multipleTouchEnabled = true
         gamePhysicsNode.collisionDelegate = self
+        
+//        defaults.setBool(false, forKey: "startup")
+        heroHealth = defaults.integerForKey("life")
+        fireRateDefault = defaults.integerForKey("rate")
+        speed = defaults.integerForKey("speed")
+        
+        lifeLabel.string = "\(heroHealth)"
     }
     
     func addScene(sceneName: String) {
@@ -79,11 +84,14 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
         level.position.x = CGFloat(sceneNum)
         if sceneName == "Scenes/BossScene" {
             addHeavyTerror(sceneNum)
+            addEnemy(CGFloat(100 + sceneNum), yCor: 150)
+            addEnemy(CGFloat(200 + sceneNum), yCor: 150)
+            addEnemy(CGFloat(300 + sceneNum), yCor: 150)
         }
-//        else {
-            addEnemy(CGFloat(200 + sceneNum), yCor: 200)
-            addEnemy(CGFloat(425 + sceneNum), yCor: 150)
-//        }
+        else {
+            addEnemy(CGFloat(250 + sceneNum), yCor: 150)
+            addEnemy(CGFloat(475 + sceneNum), yCor: 150)
+        }
         sceneNum = sceneNum + 756
     }
     
@@ -92,15 +100,21 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
         enemyArray.append(temporaryBasicEnemy)
         temporaryBasicEnemy.position = CGPoint(x: xCor, y: yCor)
         enemyNode.addChild(temporaryBasicEnemy)
+        var rightOrLeft = Int(arc4random_uniform(2))
+        if rightOrLeft == 0 {
+            temporaryBasicEnemy.scaleX = 1
+        }
+        else if rightOrLeft == 1 {
+            temporaryBasicEnemy.scaleX = -1
+        }
         numBasicEnemies++
         enemyCanShoot.append(true)
+        limitShots.append(0)
     }
     
     func addHeavyTerror(sceneNum: Int) {
-//        bossArray.append(temporaryBoss)
         temporaryBoss.position = CGPoint(x: sceneNum + 675, y: 300)
         enemyNode.addChild(temporaryBoss)
-        numBosses++
         isBoss = true
     }
     
@@ -117,28 +131,29 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
             if hero.position.y <= 0 {
                 endGame()
             }
-            if isBoss == true && hero.position.x >= (/*bossArray[numBosses].position.x*/temporaryBoss.position.x - 600) {
+            if isBoss == true && hero.position.x >= (temporaryBoss.position.x - 600) {
                 updateBoss()
                 bossSeconds++
             }
             for index in enemiesGone...numBasicEnemies {
-                if enemyArray[index].detectHero(hero.position.y, xCor: hero.position.x, scale: -1) && enemyArray[index].scaleX == -1 && limitShots >= 28 && enemyCanShoot[index] == true {
+                limitShots[index] = limitShots[index] + 1
+                if enemyArray[index].detectHero(hero.position.y, xCor: hero.position.x, scale: -1) && enemyArray[index].scaleX == -1 && limitShots[index] >= 28 && enemyCanShoot[index] == true {
                     basicEnemyShot(enemyArray[index])
-                    limitShots = 0
+                    limitShots[index] = 0
                 }
-                else if enemyArray[index].detectHero(hero.position.y, xCor: hero.position.x, scale: 1) && enemyArray[index].scaleX == 1 && limitShots >= 28 && enemyCanShoot[index] == true {
+                else if enemyArray[index].detectHero(hero.position.y, xCor: hero.position.x, scale: 1) && enemyArray[index].scaleX == 1 && limitShots[index] >= 28 && enemyCanShoot[index] == true {
                     basicEnemyShot(enemyArray[index])
-                    limitShots = 0
-                }
+                    limitShots[index] = 0
+                }//This else if not needed??
                 else {
                     enemyArray[index].move()
                 }
             }
             if hero.movementState == HeroMovementState.MovingRight {
-                hero.physicsBody.velocity.x = CGFloat(100)
+                hero.physicsBody.velocity.x = CGFloat(speed)
             }
             else if hero.movementState == HeroMovementState.MovingLeft {
-                hero.physicsBody.velocity.x = CGFloat(-100)
+                hero.physicsBody.velocity.x = CGFloat(-speed)
             }
             if hero.position.x >= CGFloat(heroXPos) {
                 enemyArray[enemiesGone].removeFromParent()
@@ -152,12 +167,11 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
                 scenesGone++
                 if scenesGone % 4 == 0 {
                     addScene("Scenes/BossScene")
-//                    bossLevelAppear = 4
-                    println("Boss")
+//                    println("Boss")
                 }
                 else {
                     var value = Int(arc4random_uniform(3))
-                    println(value)
+//                    println(value)
                     if value == 0 {
                         addScene("Scenes/Scene1")
                     }
@@ -173,25 +187,21 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
                 backgroundArray[backgroundGone].removeFromParent()
                 backgroundGone++
                 addBackground()
-//                addBackground()
             }
             position = CGPoint.zeroPoint
             let actionFollow = CCActionFollow(target: hero)
             contentNode.runAction(actionFollow)
             heroShots++
-            limitShots++
         }
     }
     
     func updateBoss() {
         if isAiming == false {
-//            bossArray[numBosses].aim()
             temporaryBoss.aim()
             isAiming = true
             bossSeconds = 0
         }
         else if bossSeconds >= 45 {
-//            bossShot(bossArray[numBosses])
             bossShot(temporaryBoss)
             bossSeconds = 0
         }
@@ -218,13 +228,12 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
         }
     }
     
-    override func touchMoved(touch : CCTouch, withEvent: CCTouchEvent) {
+    override func touchMoved(touch : CCTouch, withEvent: CCTouchEvent) {//check make2048 for their swipe gestures?
         if gameOver == false {
             var screenSeg = CCDirector.sharedDirector().viewSize().width / 2
             if touch.locationInWorld().x > screenSeg && self.jumped == false && beginTouchY < touch.locationInWorld().y {
-                hero.physicsBody.velocity.y = 100
+                hero.physicsBody.velocity.y = 80//100 just a little too much
                 hero.physicsBody.velocity.x = 0
-//                hero.physicsBody.applyImpulse(CGPoint(x: 0, y: 25))
                 hero.jumpAnimate()
                 jumped = true
             }
@@ -343,10 +352,15 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
         explosion.autoRemoveOnFinish = true
         explosion.position = basicEnemyCrash.position
         basicEnemyCrash.parent.addChild(explosion)
-        enemyNode.removeChild(basicEnemyCrash)
+//        enemyNode.removeChild(basicEnemyCrash)
+        basicEnemyCrash.removeFromParentAndCleanup(true)
         enemiesKilled++
         gameScoreLabel.string = "\(enemiesKilled)"
         enemyGone(basicEnemyCrash)
+    }
+    
+    func ccPhysicsCollisionBegin(pair: CCPhysicsCollisionPair!, basicEnemyCrash: BasicEnemy!, bossMissleCrash: CCNode!) -> Bool {
+        return false
     }
     
     func ccPhysicsCollisionPostSolve(pair: CCPhysicsCollisionPair!, bossMissleCrash: CCNode!, wildcard: CCNode!) {
@@ -355,7 +369,7 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
         explosion.position.y = (bossMissleCrash.position.y)
         explosion.position.x = (bossMissleCrash.position.x)
         explosion.userObject.setCompletedAnimationCallbackBlock { (sender: AnyObject!) -> Void in
-            explosion.removeFromParentAndCleanup(true)
+        explosion.removeFromParentAndCleanup(true)
         }
         gamePhysicsNode.addChild(explosion)
     }
@@ -366,13 +380,12 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
         if heroHealth == 0 {
             endGame()
         }
-//        self.gamePhysicsNode.removeChild(bossMissleCrash)
         bossMissleCrash.removeFromParentAndCleanup(true)
         let explosion = CCBReader.load("MissleExplosion", owner: self) as CCNode
         explosion.position.y = (bossMissleCrash.position.y)
         explosion.position.x = (bossMissleCrash.position.x)
         explosion.userObject.setCompletedAnimationCallbackBlock { (sender: AnyObject!) -> Void in
-            explosion.removeFromParentAndCleanup(true)
+        explosion.removeFromParentAndCleanup(true)
         }
         gamePhysicsNode.addChild(explosion)
         return false
@@ -400,17 +413,9 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
             enemyCanShoot[i] = false
     }
     
-//    func jump() {
-//        if self.jumped == false && gameOver == false {
-////            self.hero.physicsBody.applyImpulse(CGPoint(x: 0, y: 25))//25
-//            self.hero.physicsBody.velocity.y = 100
-//            self.jumped = true
-//            self.hero.jumpAnimate()
-//        }
-//    }
-    
     func shoot() {
-        if heroShots >= 30 && gameOver == false {
+//        var fireRateDefault = defaults.integerForKey("rate")
+        if heroShots >= fireRateDefault && gameOver == false {
 //            println("1")
             heroShots = 0
             hero.hasShot()
@@ -424,7 +429,7 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
     }
     
     func heroShot() {
-        if heroShots >= 30 {
+        if heroShots >= 30 && gameOver == false {
 //            println("2")
             heroShots = 0
             hero.hasShot()
@@ -468,6 +473,11 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
         var gameEndPopover = CCBReader.load("GameOver", owner: self) as! GameOver
         gameEndPopover.setMessage(enemiesKilled)
         addChild(gameEndPopover)
+        
+        var totalScore = defaults.integerForKey("highscore")
+        totalScore = totalScore + enemiesKilled
+        defaults.setInteger(totalScore, forKey: "highscore")
+        println(totalScore)
     }
     
     func restart() {
@@ -476,14 +486,23 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
         enemyArray.removeAll(keepCapacity: false)
         backgroundArray.removeAll(keepCapacity: false)
         enemyCanShoot.removeAll(keepCapacity: false)
-//        bossArray.removeAll(keepCapacity: false)
         let gameplayScene = CCBReader.loadAsScene("MainScene")
         CCDirector.sharedDirector().presentScene(gameplayScene)
-//        gameScoreLabel.string = "0"
     }
     
     func pause() {
-//        pauseScreen.visible = true
-//        mainScreen.paused = true
+        if gameOver == false {
+        pauseScreen.visible = true
+        self.paused = true
+        }
+    }
+    
+    func playScreen() {
+        pauseScreen.visible = false
+        self.paused = false
+    }
+    
+    func mainMenuScreen() {
+        CCDirector.sharedDirector().presentScene(mainMenu)
     }
 }

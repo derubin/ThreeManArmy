@@ -84,21 +84,27 @@
 			<true/>
 		</dict>
 		<key>Heavy_Terror_sprites</key>
+		<dict/>
+		<key>Heavy_Terror_sprites/Missle Explosion</key>
 		<dict>
-			<key>isDirty</key>
-			<true/>
-		</dict>
-		<key>Heavy_Terror_sprites/Robot</key>
-		<dict>
-			<key>isDirty</key>
-			<true/>
 			<key>isSmartSpriteSheet</key>
 			<true/>
 		</dict>
+		<key>Heavy_Terror_sprites/Robot</key>
+		<dict/>
+		<key>Heavy_Terror_sprites/Robot/walk</key>
+		<dict/>
+		<key>Heavy_Terror_sprites/Robot/walk/walk_whole</key>
+		<dict/>
 		<key>Heavy_Terror_sprites/Vehicles</key>
 		<dict/>
 		<key>Heavy_Terror_sprites/background</key>
 		<dict/>
+		<key>Heavy_Terror_sprites/background/BGz</key>
+		<dict>
+			<key>isSmartSpriteSheet</key>
+			<true/>
+		</dict>
 		<key>Heavy_Terror_sprites/effects/GunMachine PS02_11.wav</key>
 		<dict>
 			<key>format_ios_sound</key>
@@ -111,6 +117,20 @@
 		</dict>
 		<key>Heavy_Terror_sprites/explosions</key>
 		<dict/>
+		<key>Heavy_Terror_sprites/explosions/Puff_explo</key>
+		<dict/>
+		<key>Heavy_Terror_sprites/explosions/ground_explo</key>
+		<dict/>
+		<key>Heavy_Terror_sprites/explosions/missle_smoke</key>
+		<dict>
+			<key>isSmartSpriteSheet</key>
+			<true/>
+		</dict>
+		<key>Heavy_Terror_sprites/explosions/side_explo</key>
+		<dict>
+			<key>isSmartSpriteSheet</key>
+			<true/>
+		</dict>
 		<key>Heavy_Terror_sprites/sparks</key>
 		<dict/>
 		<key>Hero</key>

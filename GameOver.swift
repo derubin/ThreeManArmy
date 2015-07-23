@@ -12,8 +12,13 @@ class GameOver: CCNode {
     
     weak var scoreLabel: CCLabelTTF!//for score
     
+    let mainMenu = CCBReader.loadAsScene("MainMenu")
+    
     func setMessage(score: Int) {
         scoreLabel.string = "\(score)"
     }
-
+    
+    func mainMenuFromEnd() {
+        CCDirector.sharedDirector().presentScene(mainMenu)
+    }
 }
