@@ -94,6 +94,7 @@
 		BC5399DB1A44DCC90063F482 /* JavaFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5399D61A44DCC90063F482 /* JavaFoundation.framework */; };
 		BC5399DC1A44DCC90063F482 /* JavaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5399D71A44DCC90063F482 /* JavaKit.framework */; };
 		F90A02E01B6019D400973B1B /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90A02DF1B6019D400973B1B /* MainMenu.swift */; };
+		F90A02F61B62AB3800973B1B /* Tutorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90A02F51B62AB3800973B1B /* Tutorial.swift */; };
 		F9B88FD91B5453E6001E2024 /* HeavyTerror.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B88FD81B5453E6001E2024 /* HeavyTerror.swift */; };
 		F9B88FDB1B547873001E2024 /* BasicEnemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B88FDA1B547873001E2024 /* BasicEnemy.swift */; };
 		F9B88FDD1B581076001E2024 /* GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B88FDC1B581076001E2024 /* GameOver.swift */; };
@@ -217,6 +218,7 @@
 		BC5399D71A44DCC90063F482 /* JavaKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaKit.framework; path = "../../../../Library/Application Support/Developer/Shared/Xcode/Platforms/Android.platform/Developer/SDKs/SBAndroid.sdk/System/Library/Frameworks/JavaKit.framework"; sourceTree = "<group>"; };
 		D352B48019EC608A00829775 /* MetalShaders */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MetalShaders; path = Source/MetalShaders; sourceTree = "<group>"; };
 		F90A02DF1B6019D400973B1B /* MainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
+		F90A02F51B62AB3800973B1B /* Tutorial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tutorial.swift; sourceTree = "<group>"; };
 		F9B88FD81B5453E6001E2024 /* HeavyTerror.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeavyTerror.swift; sourceTree = "<group>"; };
 		F9B88FDA1B547873001E2024 /* BasicEnemy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicEnemy.swift; sourceTree = "<group>"; };
 		F9B88FDC1B581076001E2024 /* GameOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOver.swift; sourceTree = "<group>"; };
@@ -449,6 +451,7 @@
 				F90A02DF1B6019D400973B1B /* MainMenu.swift */,
 				F9B88FEC1B598086001E2024 /* Hero.swift */,
 				F9B88FDC1B581076001E2024 /* GameOver.swift */,
+				F90A02F51B62AB3800973B1B /* Tutorial.swift */,
 				F9B88FDA1B547873001E2024 /* BasicEnemy.swift */,
 				F9B88FD81B5453E6001E2024 /* HeavyTerror.swift */,
 				D352B48019EC608A00829775 /* MetalShaders */,
@@ -828,6 +831,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B73789871807631A0076A88C /* main.m in Sources */,
+				F90A02F61B62AB3800973B1B /* Tutorial.swift in Sources */,
 				7A046D7919E84ED5004C4763 /* MainScene.swift in Sources */,
 				F9B88FDD1B581076001E2024 /* GameOver.swift in Sources */,
 				F90A02E01B6019D400973B1B /* MainMenu.swift in Sources */,

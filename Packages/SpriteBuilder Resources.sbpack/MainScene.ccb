@@ -468,9 +468,9 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>507</real>
-							<real>35.5</real>
-							<integer>0</integer>
+							<real>50</real>
+							<real>50</real>
+							<integer>3</integer>
 							<integer>0</integer>
 							<integer>0</integer>
 						</array>
@@ -493,8 +493,8 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>1.5</real>
-							<real>1.5</real>
+							<real>-1.7000000476837158</real>
+							<real>1.7000000476837158</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -517,10 +517,10 @@
 						<string>Size</string>
 						<key>value</key>
 						<array>
-							<real>40</real>
-							<real>40</real>
-							<integer>0</integer>
-							<integer>0</integer>
+							<real>0.070422537624835968</real>
+							<real>0.125</real>
+							<integer>2</integer>
+							<integer>2</integer>
 						</array>
 					</dict>
 					<dict>
@@ -532,8 +532,8 @@
 						<array>
 							<real>0.0</real>
 							<real>0.0</real>
-							<integer>0</integer>
-							<integer>0</integer>
+							<integer>2</integer>
+							<integer>2</integer>
 						</array>
 					</dict>
 					<dict>
@@ -551,7 +551,7 @@
 						<string>String</string>
 						<key>value</key>
 						<array>
-							<string>Shoot</string>
+							<string></string>
 							<false/>
 						</array>
 					</dict>
@@ -563,7 +563,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/ccbButtonNormal.png</string>
+							<string>Buttons/flatDark48@4x.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -574,7 +574,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/ccbButtonHighlighted.png</string>
+							<string>Buttons/flatDark48@4x.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -598,7 +598,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/ccbButtonNormal.png</string>
+							<string>Buttons/flatDark48@4x.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -617,7 +617,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/ccbButtonNormal.png</string>
+							<string>Buttons/flatDark48@4x.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -802,7 +802,7 @@
 								<key>value</key>
 								<array>
 									<real>0.5</real>
-									<real>0.5</real>
+									<real>0.75</real>
 									<integer>0</integer>
 									<integer>2</integer>
 									<integer>2</integer>
@@ -1175,7 +1175,7 @@
 								<key>type</key>
 								<string>FontTTF</string>
 								<key>value</key>
-								<string>Helvetica</string>
+								<string>Papyrus</string>
 							</dict>
 							<dict>
 								<key>name</key>
@@ -1385,7 +1385,7 @@
 								<string>Text</string>
 								<key>value</key>
 								<array>
-									<string>10</string>
+									<string>0</string>
 									<false/>
 								</array>
 							</dict>
@@ -1395,7 +1395,7 @@
 								<key>type</key>
 								<string>FontTTF</string>
 								<key>value</key>
-								<string>Helvetica</string>
+								<string>Papyrus</string>
 							</dict>
 							<dict>
 								<key>name</key>
@@ -1602,7 +1602,7 @@
 								<key>type</key>
 								<string>FontTTF</string>
 								<key>value</key>
-								<string>Helvetica</string>
+								<string>Papyrus</string>
 							</dict>
 							<dict>
 								<key>name</key>
@@ -1822,7 +1822,7 @@
 								<key>type</key>
 								<string>FontTTF</string>
 								<key>value</key>
-								<string>Helvetica</string>
+								<string>Papyrus</string>
 							</dict>
 							<dict>
 								<key>name</key>
@@ -1976,7 +1976,7 @@
 						<key>value</key>
 						<array>
 							<real>0.0</real>
-							<real>0.80000001192092896</real>
+							<real>0.77999997138977051</real>
 							<integer>0</integer>
 							<integer>2</integer>
 							<integer>2</integer>
@@ -2226,7 +2226,7 @@
 								<key>type</key>
 								<string>FontTTF</string>
 								<key>value</key>
-								<string>Helvetica</string>
+								<string>Papyrus</string>
 							</dict>
 							<dict>
 								<key>name</key>
@@ -2552,7 +2552,7 @@
 								<key>type</key>
 								<string>FontTTF</string>
 								<key>value</key>
-								<string>Helvetica</string>
+								<string>Papyrus</string>
 							</dict>
 							<dict>
 								<key>name</key>
@@ -2921,9 +2921,9 @@
 			<key>name</key>
 			<string>Default Timeline</string>
 			<key>offset</key>
-			<real>0.0</real>
+			<real>5.3828125</real>
 			<key>position</key>
-			<real>0.0</real>
+			<real>10</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>

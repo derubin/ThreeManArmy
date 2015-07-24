@@ -52,12 +52,24 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
     var beginTouchY = CGFloat(0)//*same as above
     var fireRateDefault = 0//fire rate in NSUserdefaults
     var speed = 0//default speed
+    var isTutorial = false//true when a tutorial is up, goes away with next swipe
     
     let temporaryBoss = CCBReader.load("HeavyTerror") as! HeavyTerror
     let mainMenu = CCBReader.loadAsScene("MainMenu")
     let defaults = NSUserDefaults.standardUserDefaults()
+    let tutorial = CCBReader.load("Tutorial") as! Tutorial
     
     func didLoadFromCCB() {
+        if defaults.integerForKey("life") == 0 && defaults.integerForKey("rate") == 0 && defaults.integerForKey("speed") == 0{
+            defaults.setInteger(50, forKey: "speed")
+            defaults.setInteger(100, forKey: "rate")
+            defaults.setInteger(3, forKey: "life")
+            defaults.setInteger(5, forKey: "speedLabel")
+            defaults.setInteger(5, forKey: "rateLabel")
+            defaults.setInteger(5, forKey: "lifeLabel")
+        }
+        
+        tutorialScreen()
         addBackground()
         addBackground()
         addBackground()
@@ -150,9 +162,13 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
                     enemyArray[index].move()
                 }
             }
-            if hero.isShooting == true && heroShots > 15 {//Hack, replace if everything breaks
+            if hero.isShooting == true && heroShots > 25 && (hero.movementState == HeroMovementState.MovingRight || hero.movementState == HeroMovementState.MovingLeft) {//Hack, replace if everything breaks
                 hero.isShooting = false
                 hero.walkAnimate()
+            }
+            else if hero.isShooting == true && heroShots > 25 && (hero.movementState == HeroMovementState.IdleRight || hero.movementState == HeroMovementState.IdleLeft) {
+                hero.isShooting = false
+                hero.idleAnimate()
             }
             if hero.movementState == HeroMovementState.MovingRight {
                 hero.physicsBody.velocity.x = CGFloat(speed)
@@ -161,6 +177,8 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
                 hero.physicsBody.velocity.x = CGFloat(-speed)
             }
             if hero.position.x >= CGFloat(heroXPos) {
+                enemiesKilled = enemiesKilled + 5
+                gameScoreLabel.string = "\(enemiesKilled)"
                 enemyArray[enemiesGone].removeFromParent()
                 enemyGone(enemyArray[enemiesGone])
                 enemiesGone++
@@ -170,7 +188,7 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
                 sceneArray[scenesGone].removeFromParent()
                 heroXPos = heroXPos + 756
                 scenesGone++
-                if scenesGone % 4 == 0 {
+                if scenesGone % 3 == 0 {
                     addScene("Scenes/BossScene")
 //                    println("Boss")
                 }
@@ -275,8 +293,8 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
 //            }
 //        }
 //        }
-    }
-    
+}
+
     func setupGestures() {
         var swipeLeft = UISwipeGestureRecognizer(target: self, action: "swipeLeft")
         swipeLeft.direction = .Left
@@ -296,27 +314,56 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
     }
     
     func swipeLeft() {
-      hero.movementState = HeroMovementState.MovingLeft
-      hero.walkAnimate()
-      hero.scaleX = -1
+        if gameOver == false {
+            if isTutorial == true {
+                isTutorial = false
+                tutorial.removeFromParentAndCleanup(true)
+            }
+           hero.movementState = HeroMovementState.MovingLeft
+           hero.walkAnimate()
+           hero.scaleX = -1
+        }
     }
 
     func swipeRight() {
-      hero.movementState = HeroMovementState.MovingRight
-      hero.walkAnimate()
-      hero.scaleX = 1
+        if gameOver == false {
+            if isTutorial == true {
+                isTutorial = false
+                tutorial.removeFromParentAndCleanup(true)
+            }
+           hero.movementState = HeroMovementState.MovingRight
+           hero.walkAnimate()
+           hero.scaleX = 1
+        }
     }
     
     func swipeUp() {
-        hero.physicsBody.velocity.y = 80//100 just a little too much
-        hero.jumpAnimate()
-        jumped = true
+        if gameOver == false && jumped == false {
+            if isTutorial == true {
+                isTutorial = false
+                tutorial.removeFromParentAndCleanup(true)
+            }
+            hero.physicsBody.velocity.y = 80//100 just a little too much
+            hero.jumpAnimate()
+            jumped = true
+        }
     }
 
     func swipeDown() {
-        hero.idleAnimate()
-        hero.movementState = HeroMovementState.IdleRight
-        hero.physicsBody.velocity.x = CGFloat(0)
+        if gameOver == false {
+            if isTutorial == true {
+                isTutorial = false
+                tutorial.removeFromParentAndCleanup(true)
+            }
+            hero.idleAnimate()
+            if hero.movementState == HeroMovementState.MovingRight {
+                hero.movementState = HeroMovementState.IdleRight
+            }
+            else if hero.movementState == HeroMovementState.MovingLeft {
+                hero.movementState = HeroMovementState.IdleLeft
+            }
+            hero.physicsBody.velocity.x = CGFloat(0)
+        }
     }
     
     func ccPhysicsCollisionPostSolve(pair: CCPhysicsCollisionPair!, falling: Hero!, ground: CCNode!) {
@@ -377,6 +424,14 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
     
     func ccPhysicsCollisionPostSolve(pair: CCPhysicsCollisionPair!, shot: CCParticleSystem!, wildcard: CCNode!) {
         self.gamePhysicsNode.removeChild(shot)
+    }
+    
+    func ccPhysicsCollisionBegin(pair: CCPhysicsCollisionPair!, shot: CCParticleSystem!, falling: Hero!) -> Bool {
+        return false
+    }
+    
+    func ccPhysicsCollisionBegin(pair: CCPhysicsCollisionPair!, shot type1: CCParticleSystem!, shot type2: CCParticleSystem!) -> Bool {
+        return false
     }
     
     func ccPhysicsCollisionPostSolve(pair: CCPhysicsCollisionPair!, basicEnemyShot: CCParticleSystem!, wildcard: CCNode!) {
@@ -452,7 +507,7 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
             enemyNode.removeChild(heavyTerrorCrash)
             isBoss = false
             missleArray.removeAll(keepCapacity: false)
-            enemiesKilled = enemiesKilled + 5
+            enemiesKilled = enemiesKilled + 25
             gameScoreLabel.string = "\(enemiesKilled)"
         }
         return false
@@ -515,6 +570,11 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
     }
     
     func endGame() {
+        var totalScore = defaults.integerForKey("highscore")
+        totalScore = totalScore + enemiesKilled
+        defaults.setInteger(totalScore, forKey: "highscore")
+        println(totalScore)
+        
         gameOver = true
         let explosion = CCBReader.load("HeroDeath") as! CCParticleSystem
         explosion.autoRemoveOnFinish = true
@@ -524,11 +584,6 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
         var gameEndPopover = CCBReader.load("GameOver", owner: self) as! GameOver
         gameEndPopover.setMessage(enemiesKilled)
         addChild(gameEndPopover)
-        
-        var totalScore = defaults.integerForKey("highscore")
-        totalScore = totalScore + enemiesKilled
-        defaults.setInteger(totalScore, forKey: "highscore")
-        println(totalScore)
     }
     
     func restart() {
@@ -543,17 +598,38 @@ class MainScene: CCNode, CCPhysicsCollisionDelegate {
     
     func pause() {
         if gameOver == false {
-        pauseScreen.visible = true
-        self.paused = true
+            pauseScreen.visible = true
+            self.paused = true
+            if isTutorial == true {
+                tutorial.visible = false
+            }
         }
     }
     
     func playScreen() {
         pauseScreen.visible = false
         self.paused = false
+        if isTutorial == true {
+            tutorial.visible = true
+        }
     }
     
     func mainMenuScreen() {
         CCDirector.sharedDirector().presentScene(mainMenu)
+    }
+    
+    func tutorialScreen() {
+        addChild(tutorial)
+        isTutorial = true
+    }
+    
+    func resetDefaults() {
+        defaults.setInteger(0, forKey: "speed")
+        defaults.setInteger(0, forKey: "rate")
+        defaults.setInteger(0, forKey: "life")
+        defaults.setInteger(5, forKey: "speedLabel")
+        defaults.setInteger(5, forKey: "rateLabel")
+        defaults.setInteger(5, forKey: "lifeLabel")
+        defaults.setInteger(0, forKey: "highscore")
     }
 }

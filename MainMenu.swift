@@ -10,10 +10,11 @@ import Foundation
 
 class MainMenu: CCNode {
     
-    //10, 25, 50, 100, 250, 500, 1000
+    //0, 5, 15, 35, 75, 155, 315, 
     weak var upgradeSpeedLabel: CCLabelTTF!
     weak var upgradeRateLabel: CCLabelTTF!
     weak var upgradeLifeLabel: CCLabelTTF!
+    weak var pointsLabel: CCLabelTTF!
     
     var speed = 0
     var rate = 0
@@ -31,6 +32,8 @@ class MainMenu: CCNode {
         upgradeRateLabel.string = "\(startRate)"
         var startLife = defaults.integerForKey("lifeLabel")
         upgradeLifeLabel.string = "\(startLife)"
+        var upgradePoints = defaults.integerForKey("highscore")
+        pointsLabel.string = "\(upgradePoints)"
     }
     
     func startGame() {
@@ -43,16 +46,17 @@ class MainMenu: CCNode {
         var points = defaults.integerForKey("highscore")
         speed = defaults.integerForKey("speedLabel")
         if points >= speed {
-            if speedOnce == true {
-                defaults.setInteger(50, forKey: "speed")
-                speedOnce = false
-            }
-            var newScore = defaults.integerForKey("highscore") - speed
+//            if speedOnce == true {
+//                defaults.setInteger(50, forKey: "speed")
+//                speedOnce = false
+//            }
+            var newScore = points - speed
             defaults.setInteger(newScore, forKey: "highscore")
             println(newScore)
+            pointsLabel.string = "\(newScore)"
             
             var actualSpeed = defaults.integerForKey("speed")
-            speed = defaults.integerForKey("speedLabel") + 10
+            speed = (defaults.integerForKey("speedLabel") * 2) + 5
             actualSpeed = actualSpeed + 5
             defaults.setInteger(actualSpeed, forKey: "speed")
             upgradeSpeedLabel.string = "\(speed)"
@@ -64,16 +68,17 @@ class MainMenu: CCNode {
         var points = defaults.integerForKey("highscore")
         rate = defaults.integerForKey("rateLabel")
         if points >= rate {
-            if rateOnce == true {
-                defaults.setInteger(100, forKey: "rate")
-                rateOnce = false
-            }
+//            if rateOnce == true {
+//                defaults.setInteger(100, forKey: "rate")
+//                rateOnce = false
+//            }
             var newScore = defaults.integerForKey("highscore") - rate
             defaults.setInteger(newScore, forKey: "highscore")
             println(newScore)
+            pointsLabel.string = "\(newScore)"
             
             var actualRate = defaults.integerForKey("rate")
-            rate = defaults.integerForKey("rateLabel") + 10
+            rate = (defaults.integerForKey("rateLabel") * 2) + 5
             actualRate = actualRate - 5
             defaults.setInteger(actualRate, forKey: "rate")
             upgradeRateLabel.string = "\(rate)"
@@ -85,17 +90,18 @@ class MainMenu: CCNode {
         var points = defaults.integerForKey("highscore")
         life = defaults.integerForKey("lifeLabel")
         if points >= life {
-            if lifeOnce == true {
-                defaults.setInteger(3, forKey: "life")
-                lifeOnce = false
-            }
+//            if lifeOnce == true {
+//                defaults.setInteger(3, forKey: "life")
+//                lifeOnce = false
+//            }
             var newScore = defaults.integerForKey("highscore") - life
             defaults.setInteger(newScore, forKey: "highscore")
             println(newScore)
+            pointsLabel.string = "\(newScore)"
             
             life = defaults.integerForKey("lifeLabel")
             var actualLife = defaults.integerForKey("life")
-            life = defaults.integerForKey("lifeLabel") + 10
+            life = (defaults.integerForKey("lifeLabel") * 2) + 5
             actualLife = actualLife + 1
             defaults.setInteger(actualLife, forKey: "life")
             upgradeLifeLabel.string = "\(life)"
