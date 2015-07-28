@@ -20,6 +20,8 @@ class HeavyTerror: CCSprite {
     weak var walk: CCNode!
     weak var aimA: CCNode!
     
+    var isClose = true
+    
     func aim() {
         aimA.visible = true
         walk.visible = false

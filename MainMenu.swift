@@ -108,4 +108,9 @@ class MainMenu: CCNode {
             defaults.setInteger(life, forKey: "lifeLabel")
         }
     }
+    
+    func highScore() {
+        let scoreScreen = CCBReader.loadAsScene("HighScore")
+        CCDirector.sharedDirector().presentScene(scoreScreen)
+    }
 }

@@ -22,11 +22,11 @@ class Hero: CCSprite {
         didSet {
             if movementState == .IdleRight || movementState == .MovingRight {
                 shotMoveScale = 5
-                shotImpulseScale = 20
+                shotImpulseScale = 30
             }
             if movementState == .IdleLeft || movementState == .MovingLeft {
                 shotMoveScale = -8
-                shotImpulseScale = -20
+                shotImpulseScale = -30
             }
         }
     }

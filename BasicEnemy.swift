@@ -19,11 +19,11 @@ class BasicEnemy: CCSprite {
         didSet {
             if movementState == .MovingRight {
                 shotMoveScale = 5
-                shotImpulseScale = 20
+                shotImpulseScale = 30
             }
             if movementState == .MovingLeft {
                 shotMoveScale = -5
-                shotImpulseScale = -20
+                shotImpulseScale = -30
             }
         }
     }
@@ -76,11 +76,11 @@ class BasicEnemy: CCSprite {
         }
         if self.scaleX == 1 {
 //            self.position = CGPoint(x: (self.position.x + 1), y: self.position.y)
-            self.physicsBody.velocity.x = CGFloat(30)
+            self.physicsBody.velocity.x = CGFloat(200)
         }
         else if self.scaleX == -1 {
 //            self.position = CGPoint(x: (self.position.x - 1), y: self.position.y)
-            self.physicsBody.velocity.x = CGFloat(-30)
+            self.physicsBody.velocity.x = CGFloat(-200)
         }
     }
 }
