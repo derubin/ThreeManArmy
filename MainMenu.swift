@@ -23,6 +23,7 @@ class MainMenu: CCNode {
     var rateOnce = true
     var lifeOnce = true
     
+    let scoreScreen = CCBReader.loadAsScene("HighScore")
     let defaults = NSUserDefaults.standardUserDefaults()
     
     func didLoadFromCCB() {
@@ -52,7 +53,7 @@ class MainMenu: CCNode {
 //            }
             var newScore = points - speed
             defaults.setInteger(newScore, forKey: "highscore")
-            println(newScore)
+//            println(newScore)
             pointsLabel.string = "\(newScore)"
             
             var actualSpeed = defaults.integerForKey("speed")
@@ -74,12 +75,12 @@ class MainMenu: CCNode {
 //            }
             var newScore = defaults.integerForKey("highscore") - rate
             defaults.setInteger(newScore, forKey: "highscore")
-            println(newScore)
+//            println(newScore)
             pointsLabel.string = "\(newScore)"
             
             var actualRate = defaults.integerForKey("rate")
             rate = (defaults.integerForKey("rateLabel") * 2) + 5
-            actualRate = actualRate - 5
+            actualRate = actualRate - 1
             defaults.setInteger(actualRate, forKey: "rate")
             upgradeRateLabel.string = "\(rate)"
             defaults.setInteger(rate, forKey: "rateLabel")
@@ -96,7 +97,7 @@ class MainMenu: CCNode {
 //            }
             var newScore = defaults.integerForKey("highscore") - life
             defaults.setInteger(newScore, forKey: "highscore")
-            println(newScore)
+//            println(newScore)
             pointsLabel.string = "\(newScore)"
             
             life = defaults.integerForKey("lifeLabel")
@@ -110,7 +111,6 @@ class MainMenu: CCNode {
     }
     
     func highScore() {
-        let scoreScreen = CCBReader.loadAsScene("HighScore")
         CCDirector.sharedDirector().presentScene(scoreScreen)
     }
 }

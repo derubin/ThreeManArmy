@@ -35,6 +35,8 @@ class BasicEnemy: CCSprite {
     weak var shootLeft: CCNode!
     var isShooting = false
     
+    var enemySpeed = 75
+    
     func shootBowRight() {
         walk.visible = false
         shootLeft.visible = false
@@ -52,10 +54,10 @@ class BasicEnemy: CCSprite {
     func detectHero(yCor: CGFloat, xCor: CGFloat, scale: Int) -> Bool {
         if self.position.y >= (yCor - 10) && self.position.y <= (yCor + 10) {
             var difference = abs(self.position.x - xCor)
-            if self.position.x >= xCor && scale == -1 && difference <= 648 {
+            if self.position.x >= xCor && scale == -1 && difference <= 450 {
                 return true
             }
-            else if self.position.x < xCor && scale == 1 && difference <= 648 {
+            else if self.position.x < xCor && scale == 1 && difference <= 450 {
                 return true
             }
             else {
@@ -76,11 +78,15 @@ class BasicEnemy: CCSprite {
         }
         if self.scaleX == 1 {
 //            self.position = CGPoint(x: (self.position.x + 1), y: self.position.y)
-            self.physicsBody.velocity.x = CGFloat(200)
+            self.physicsBody.velocity.x = CGFloat(100)
         }
         else if self.scaleX == -1 {
 //            self.position = CGPoint(x: (self.position.x - 1), y: self.position.y)
-            self.physicsBody.velocity.x = CGFloat(-200)
+            self.physicsBody.velocity.x = CGFloat(-100)
         }
+    }
+    
+    func upSpeed() {//use defaults
+        enemySpeed = enemySpeed + 5
     }
 }
