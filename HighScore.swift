@@ -23,6 +23,7 @@ class HighScore: CCNode {
     let defaults = NSUserDefaults.standardUserDefaults()
     
     func didLoadFromCCB() {
+        self.contentSize = CGSize(width: CCDirector.sharedDirector().viewSize().width, height: CCDirector.sharedDirector().viewSize().height)
         var startDistance = defaults.integerForKey("distance")
         distanceHigh.string = "\(startDistance)"
         var startScore = defaults.integerForKey("score")

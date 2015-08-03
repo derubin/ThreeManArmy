@@ -96,6 +96,7 @@
 		F90A02E01B6019D400973B1B /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90A02DF1B6019D400973B1B /* MainMenu.swift */; };
 		F90A02F61B62AB3800973B1B /* Tutorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90A02F51B62AB3800973B1B /* Tutorial.swift */; };
 		F90A02F81B669DE300973B1B /* HighScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90A02F71B669DE300973B1B /* HighScore.swift */; };
+		F90A02FC1B6C249300973B1B /* Wall.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90A02FB1B6C249300973B1B /* Wall.swift */; };
 		F9B88FD91B5453E6001E2024 /* HeavyTerror.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B88FD81B5453E6001E2024 /* HeavyTerror.swift */; };
 		F9B88FDB1B547873001E2024 /* BasicEnemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B88FDA1B547873001E2024 /* BasicEnemy.swift */; };
 		F9B88FDD1B581076001E2024 /* GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B88FDC1B581076001E2024 /* GameOver.swift */; };
@@ -221,6 +222,7 @@
 		F90A02DF1B6019D400973B1B /* MainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
 		F90A02F51B62AB3800973B1B /* Tutorial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tutorial.swift; sourceTree = "<group>"; };
 		F90A02F71B669DE300973B1B /* HighScore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighScore.swift; sourceTree = "<group>"; };
+		F90A02FB1B6C249300973B1B /* Wall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wall.swift; sourceTree = "<group>"; };
 		F9B88FD81B5453E6001E2024 /* HeavyTerror.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeavyTerror.swift; sourceTree = "<group>"; };
 		F9B88FDA1B547873001E2024 /* BasicEnemy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicEnemy.swift; sourceTree = "<group>"; };
 		F9B88FDC1B581076001E2024 /* GameOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOver.swift; sourceTree = "<group>"; };
@@ -450,6 +452,7 @@
 			children = (
 				7A40362019DDEF0D007B6E8F /* Platforms */,
 				7A046D7519E84C36004C4763 /* MainScene.swift */,
+				F90A02FB1B6C249300973B1B /* Wall.swift */,
 				F90A02F71B669DE300973B1B /* HighScore.swift */,
 				F90A02DF1B6019D400973B1B /* MainMenu.swift */,
 				F9B88FEC1B598086001E2024 /* Hero.swift */,
@@ -836,6 +839,7 @@
 				B73789871807631A0076A88C /* main.m in Sources */,
 				F90A02F61B62AB3800973B1B /* Tutorial.swift in Sources */,
 				7A046D7919E84ED5004C4763 /* MainScene.swift in Sources */,
+				F90A02FC1B6C249300973B1B /* Wall.swift in Sources */,
 				F9B88FDD1B581076001E2024 /* GameOver.swift in Sources */,
 				F90A02F81B669DE300973B1B /* HighScore.swift in Sources */,
 				F90A02E01B6019D400973B1B /* MainMenu.swift in Sources */,

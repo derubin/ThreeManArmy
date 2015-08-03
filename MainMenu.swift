@@ -10,7 +10,7 @@ import Foundation
 
 class MainMenu: CCNode {
     
-    //0, 5, 15, 35, 75, 155, 315, 
+    //5, 15, 35, 75, 155, 315
     weak var upgradeSpeedLabel: CCLabelTTF!
     weak var upgradeRateLabel: CCLabelTTF!
     weak var upgradeLifeLabel: CCLabelTTF!
@@ -27,6 +27,7 @@ class MainMenu: CCNode {
     let defaults = NSUserDefaults.standardUserDefaults()
     
     func didLoadFromCCB() {
+        self.contentSize = CGSize(width: CCDirector.sharedDirector().viewSize().width, height: CCDirector.sharedDirector().viewSize().height)
         var startSpeed = defaults.integerForKey("speedLabel")
         upgradeSpeedLabel.string = "\(startSpeed)"
         var startRate = defaults.integerForKey("rateLabel")
