@@ -114,4 +114,9 @@ class MainMenu: CCNode {
     func highScore() {
         CCDirector.sharedDirector().presentScene(scoreScreen)
     }
+    
+    func about() {
+        let about = CCBReader.loadAsScene("About")
+        CCDirector.sharedDirector().presentScene(about)
+    }
 }

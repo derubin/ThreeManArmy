@@ -51,37 +51,6 @@ class HighScore: CCNode {
 //        }
     }
     
-//    func checkHighScores(heroY: Int, score: Int, enemies: Int, bosses: Int) {
-//        if defaults.integerForKey("distance") < heroY {
-//            defaults.setInteger(heroY, forKey: "distance")
-//            distanceHigh.string = "\(heroY)"
-//        }
-//        if defaults.integerForKey("score") < score {
-//            defaults.setInteger(score, forKey: "score")
-//            scoreHigh.string = "\(score)"
-//        }
-//        if defaults.integerForKey("enemies") < enemies {
-//            defaults.setInteger(enemies, forKey: "enemies")
-//            enemiesHigh.string = "\(enemies)"
-//        }
-//        if defaults.integerForKey("bosses") < bosses {
-//            defaults.setInteger(bosses, forKey: "bosses")
-//            bossesHigh.string = "\(bosses)"
-//        }
-//        var totalDistance = defaults.integerForKey("distanceTotal") + heroY
-//        defaults.setInteger(totalDistance, forKey: "distanceTotal")
-//        distanceTotal.string = "\(totalDistance)"
-//        var totalScore = defaults.integerForKey("scoreTotal") + score
-//        defaults.setInteger(totalScore, forKey: "scoreTotal")
-//        scoreTotal.string = "\(totalScore)"
-//        var totalEnemies = defaults.integerForKey("enemiesTotal") + enemies
-//        defaults.setInteger(totalEnemies, forKey: "enemiesTotal")
-//        enemiesTotal.string = "\(totalEnemies)"
-//        var totalBosses = defaults.integerForKey("bossesTotal") + bosses
-//        defaults.setInteger(totalBosses, forKey: "bossesTotal")
-//        bossesTotal.string = "\(totalBosses)"
-//    }
-    
     func backToStore() {
         let store = CCBReader.loadAsScene("MainMenu")
         CCDirector.sharedDirector().presentScene(store)

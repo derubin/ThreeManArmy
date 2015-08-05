@@ -78,6 +78,11 @@
 			<key>previewFolderHidden</key>
 			<true/>
 		</dict>
+		<key>Buttons</key>
+		<dict>
+			<key>isSmartSpriteSheet</key>
+			<true/>
+		</dict>
 		<key>Enemy Sprite with Bow</key>
 		<dict>
 			<key>isSmartSpriteSheet</key>
@@ -92,9 +97,14 @@
 		</dict>
 		<key>Heavy_Terror_sprites/Robot</key>
 		<dict/>
-		<key>Heavy_Terror_sprites/Robot/walk</key>
+		<key>Heavy_Terror_sprites/Robot/AimB/AimB_whole</key>
+		<dict>
+			<key>isSmartSpriteSheet</key>
+			<true/>
+		</dict>
+		<key>Heavy_Terror_sprites/Robot/Idle</key>
 		<dict/>
-		<key>Heavy_Terror_sprites/Robot/walk/walk_whole</key>
+		<key>Heavy_Terror_sprites/Robot/Idle/idle_whole</key>
 		<dict/>
 		<key>Heavy_Terror_sprites/Vehicles</key>
 		<dict/>
@@ -114,22 +124,6 @@
 		<dict>
 			<key>format_ios_sound</key>
 			<integer>1</integer>
-		</dict>
-		<key>Heavy_Terror_sprites/explosions</key>
-		<dict/>
-		<key>Heavy_Terror_sprites/explosions/Puff_explo</key>
-		<dict/>
-		<key>Heavy_Terror_sprites/explosions/ground_explo</key>
-		<dict/>
-		<key>Heavy_Terror_sprites/explosions/missle_smoke</key>
-		<dict>
-			<key>isSmartSpriteSheet</key>
-			<true/>
-		</dict>
-		<key>Heavy_Terror_sprites/explosions/side_explo</key>
-		<dict>
-			<key>isSmartSpriteSheet</key>
-			<true/>
 		</dict>
 		<key>Heavy_Terror_sprites/sparks</key>
 		<dict/>

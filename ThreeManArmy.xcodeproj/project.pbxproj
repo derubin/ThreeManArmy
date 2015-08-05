@@ -93,6 +93,7 @@
 		BC5399DA1A44DCC90063F482 /* GLActivityKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5399D51A44DCC90063F482 /* GLActivityKit.framework */; };
 		BC5399DB1A44DCC90063F482 /* JavaFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5399D61A44DCC90063F482 /* JavaFoundation.framework */; };
 		BC5399DC1A44DCC90063F482 /* JavaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5399D71A44DCC90063F482 /* JavaKit.framework */; };
+		F90882281B71215400D78277 /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90882271B71215400D78277 /* About.swift */; };
 		F90A02E01B6019D400973B1B /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90A02DF1B6019D400973B1B /* MainMenu.swift */; };
 		F90A02F61B62AB3800973B1B /* Tutorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90A02F51B62AB3800973B1B /* Tutorial.swift */; };
 		F90A02F81B669DE300973B1B /* HighScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90A02F71B669DE300973B1B /* HighScore.swift */; };
@@ -219,6 +220,7 @@
 		BC5399D61A44DCC90063F482 /* JavaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaFoundation.framework; path = "../../../../Library/Application Support/Developer/Shared/Xcode/Platforms/Android.platform/Developer/SDKs/SBAndroid.sdk/System/Library/Frameworks/JavaFoundation.framework"; sourceTree = "<group>"; };
 		BC5399D71A44DCC90063F482 /* JavaKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaKit.framework; path = "../../../../Library/Application Support/Developer/Shared/Xcode/Platforms/Android.platform/Developer/SDKs/SBAndroid.sdk/System/Library/Frameworks/JavaKit.framework"; sourceTree = "<group>"; };
 		D352B48019EC608A00829775 /* MetalShaders */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MetalShaders; path = Source/MetalShaders; sourceTree = "<group>"; };
+		F90882271B71215400D78277 /* About.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = About.swift; sourceTree = "<group>"; };
 		F90A02DF1B6019D400973B1B /* MainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
 		F90A02F51B62AB3800973B1B /* Tutorial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tutorial.swift; sourceTree = "<group>"; };
 		F90A02F71B669DE300973B1B /* HighScore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighScore.swift; sourceTree = "<group>"; };
@@ -452,6 +454,7 @@
 			children = (
 				7A40362019DDEF0D007B6E8F /* Platforms */,
 				7A046D7519E84C36004C4763 /* MainScene.swift */,
+				F90882271B71215400D78277 /* About.swift */,
 				F90A02FB1B6C249300973B1B /* Wall.swift */,
 				F90A02F71B669DE300973B1B /* HighScore.swift */,
 				F90A02DF1B6019D400973B1B /* MainMenu.swift */,
@@ -837,6 +840,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B73789871807631A0076A88C /* main.m in Sources */,
+				F90882281B71215400D78277 /* About.swift in Sources */,
 				F90A02F61B62AB3800973B1B /* Tutorial.swift in Sources */,
 				7A046D7919E84ED5004C4763 /* MainScene.swift in Sources */,
 				F90A02FC1B6C249300973B1B /* Wall.swift in Sources */,
